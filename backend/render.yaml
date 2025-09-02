@@ -1,0 +1,67 @@
+services:
+  - type: web
+    name: lingumate-backend
+    env: node
+    plan: starter
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      
+      # Database Configuration (CRITICAL - Set this to your Render PostgreSQL URL)
+      - key: DATABASE_URL
+        value: postgresql://username:password@host:port/database_name
+      
+      # Security (CRITICAL - Generate strong secrets)
+      - key: JWT_SECRET
+        value: your-super-secret-jwt-key-here
+      - key: SESSION_SECRET
+        value: your-super-secret-session-key-here
+      
+      # API Keys (Required for functionality)
+      - key: OPENAI_API_KEY
+        value: your-openai-api-key
+      - key: GOOGLE_AI_API_KEY
+        value: your-google-ai-api-key
+      - key: GOOGLE_CLIENT_ID
+        value: your-google-client-id
+      
+      # Payment Configuration
+      - key: RAZORPAY_KEY_ID
+        value: your-razorpay-key-id
+      - key: RAZORPAY_KEY_SECRET
+        value: your-razorpay-key-secret
+      - key: STRIPE_SECRET_KEY
+        value: your-stripe-secret-key
+      - key: STRIPE_WEBHOOK_SECRET
+        value: your-stripe-webhook-secret
+      
+      # Firebase Configuration
+      - key: FIREBASE_PROJECT_ID
+        value: your-firebase-project-id
+      - key: FIREBASE_PRIVATE_KEY
+        value: your-firebase-private-key
+      - key: FIREBASE_CLIENT_EMAIL
+        value: your-firebase-client-email
+      
+      # Genkit Configuration
+      - key: GENKIT_API_KEY
+        value: your-genkit-api-key
+      
+      # Frontend URLs (Update with your actual Vercel URL)
+      - key: FRONTEND_URL
+        value: https://your-vercel-app.vercel.app
+      - key: CORS_ORIGIN
+        value: https://your-vercel-app.vercel.app
+      - key: ALLOWED_ORIGINS
+        value: https://your-vercel-app.vercel.app
+    healthCheckPath: /health
+    autoDeploy: true
+    region: oregon
+    disk:
+      name: uploads
+      mountPath: /opt/render/project/src/uploads
+      sizeGB: 1
